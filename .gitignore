@@ -1,0 +1,13 @@
+*data*
+__pycache__
+*.ipynb_checkpoints*
+*.pdf
+notebooks/utils/__pycache__/colorb_2D.cpython-310.pyc
+notebooks/utils/__pycache__/colorb_2D.cpython-310.pyc
+.scalarmg/*
+MG5*
+
+madgraph/Delphes-3.5.0/*
+madgraph/*
+
+notebooks/myruns/*
