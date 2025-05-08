@@ -8,6 +8,9 @@ notebooks/utils/__pycache__/colorb_2D.cpython-310.pyc
 MG5*
 
 madgraph/Delphes-3.5.0/*
-madgraph/*
+madgraph/workdir/*
 
 notebooks/myruns/*
+micromegas/micromegas_6.1.15/*
+*.csv
+micromegas/pymicromegas
