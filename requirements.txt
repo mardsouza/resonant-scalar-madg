@@ -3,3 +3,5 @@ pandas
 sympy
 matplotlib
 mplhep
+scipy
+syhep

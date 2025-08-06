@@ -1,17 +1,13 @@
-### newmodules
-import sympy
-from sympy import I as Im
-from sympy import conjugate
-from sympy import sympify, symbols, simplify, Symbol, Mul, expand
+import sympy as sy
 from sympy.parsing.latex import parse_latex
-import antlr4
-
 ## Utils
 
 # Function to search for a symbol in a expression
-from sympy import symbols, sqrt, assuming, Q
 
-def find_symbol(expr, target: str):
+
+
+def find_symbol(expr: sy.Expr, target: str):
+    '''Find a specific symbol in a expression'''
     symb_lst = list(expr.free_symbols)
     names_lst = []
     if len(symb_lst) > 0: 
@@ -29,10 +25,10 @@ def find_symbol(expr, target: str):
                 #pass
         # print(f"Symbol {target} not found. \n The symbols in the expression are {expr.free_symbols}")
         # return None
-        return symbols(target, real=True, positive=True)
+        return sy.symbols(target, real=True, positive=True)
     # symbol not found, create the same
     else:
-        return symbols(target, real=True, positive=True)
+        return sy.symbols(target, real=True, positive=True)
 
 
 # Unify the symbols of different expressions
@@ -45,7 +41,7 @@ def unify_symbols(expr1, expr2):
 
     symbol_mapping = {}
     for symbol in common_symbols:
-        new_symbol = Symbol(symbol)
+        new_symbol = sy.Symbol(symbol)
         symbol_mapping[symbol] = new_symbol
 
     #print(symbol_mapping)
@@ -54,15 +50,20 @@ def unify_symbols(expr1, expr2):
 
     return expr1, expr2
 
-# Define LaTeX expressions
-# Parse the LaTeX expressions - EXAMPLE
-# Unify symbols with the same text names
-#unified_expr1, unified_expr2 = unify_symbols(expr1, expr2)
-#dl.replace(dl.args[1].args[0], n)
-#print("Unified Expression 1:", unified_expr1)
-#print("Unified Expression 2:", unified_expr2)
 
-# Unify the symbols of different expressions
+import pickle
+
+# Salvar um objeto em formato pickle no disco
+def save_obj(objeto, nome_arquivo):
+    with open(nome_arquivo, 'wb') as arquivo:
+        pickle.dump(objeto, arquivo)
+    print(f"Objeto salvo em {nome_arquivo}")
+
+# Carregar um objeto em formato pickle do disco
+def load_obj(nome_arquivo):
+    with open(nome_arquivo, 'rb') as arquivo:
+        objeto = pickle.load(arquivo)
+    return objeto
 
 
 ## Eq 2.36 
@@ -96,6 +97,6 @@ def dln(np):
         fact.append(parse_latex(exp))
         result *= fact[i]
 
-    nnew = Symbol(f'{np}')
+    nnew = sy.Symbol(f'{np}')
     result = result.replace(find_symbol(result, 'n'), nnew)
     return result
