@@ -1,0 +1,3 @@
+[submodule "syHEP"]
+	path = syHEP
+	url = https://github.com/mardsouza/syHEP.git
