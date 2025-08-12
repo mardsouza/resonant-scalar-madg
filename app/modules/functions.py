@@ -100,3 +100,26 @@ def dln(np):
     nnew = sy.Symbol(f'{np}')
     result = result.replace(find_symbol(result, 'n'), nnew)
     return result
+
+
+# Transform the expressions into python functions automatically
+#sigma_SM_func = lambdify((s, Mmed, mf, gf, gv, Gamma), sigma_SM, 'numpy')
+import inspect
+def get_py_src(expression: sy.Expr, func_name: str):
+    
+
+    old_symbols = list(expression.free_symbols)
+    new_symbols = [str(sym).replace('\\', '_').replace('{', '').replace('}', '') for sym in  list(tuple((expression.free_symbols)))]
+    #list_symbols = [str(sym).replace('\\', '').replace('{', '').replace('}', '') for sym in  list(tuple((expression.free_symbols)))]
+    
+    new_expression = expression.subs(tuple(zip(old_symbols, new_symbols)))
+    py_func = sy.lambdify(list(new_expression.free_symbols), new_expression, 'numpy')
+
+    #py_func = sy.lambdify(list_symbols, expression, 'numpy')
+    
+    lambdfy_str = inspect.getsource(py_func)
+    lambdfy_str = lambdfy_str.replace('_lambdifygenerated', func_name)
+    lambdfy_str = lambdfy_str.replace('sqrt', 'np.sqrt')
+    lambdfy_str = lambdfy_str.replace('pi', 'np.pi')
+
+    return lambdfy_str
