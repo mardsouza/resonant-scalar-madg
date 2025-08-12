@@ -1,5 +1,0 @@
-
-    generate e+ e- > mu+ mu-
-    output generated_events
-    launch
-    
